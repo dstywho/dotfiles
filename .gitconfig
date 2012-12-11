@@ -1,6 +1,6 @@
 [user]
-	name = dustin
-	email = dstywho@gmail.com
+	name = Dustin Tsang
+	email = dtsang@redhat.com
 [github]
 	token = 0ce02678b82797618d530cc9741ccba4
 [color]
@@ -8,3 +8,26 @@
 	interactive = auto
 	status = auto
 	branch = auto
+[alias]
+  a = add
+  st = status
+  s = status --short
+  ci = commit
+  m = commit
+  br = branch
+  co = checkout
+  cp = cherry-pick
+  l = !source ~/.githelpers && git_log "\"$FORMAT\""
+  ll = !source ~/.githelpers && git_log "\"$FORMAT_LONG_HASH\""
+  b = !source ~/.githelpers && git_branch_age
+  bc = !source ~/.githelpers && branch_created_at
+  sl = !source ~/.githelpers && git_stash_list
+
+[http]
+	sslVerify = false
+[giggle]
+	main-window-maximized = false
+	main-window-geometry = 1003x596+913+0
+	main-window-view = FileView
+	history-view-vpane-position = 187
+	file-view-vpane-position = 175

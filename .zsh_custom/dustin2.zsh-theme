@@ -5,14 +5,14 @@ function _color256 { printf "\e[38;5;$1m" }
 function color256 { echo "%{$(_color256 $1)%}" }
 
 RED="$(color256 9)"
-BLUE="$(color256 117)"
-CBLUE="$(color256 81)"
-YELLOW="$(color256 229)"
-BROWN="$(color256 143)"
-PINK="$(color256 177)"
-SALMON="$(color256 204)"
-GREEN="$(color256 155)"
-RED="$(color256 9)"
+BLUE=$(color256 117)
+CBLUE=$(color256 81)
+YELLOW=$(color256 229)
+BROWN=$(color256 143)
+PINK=$(color256 177)
+SALMON=$(color256 204)
+GREEN=$(color256 155)
+RED=$(color256 9)
 RESET="%{$reset_color%}"
 
 
@@ -31,10 +31,27 @@ setopt prompt_subst
 #    echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$ZSH_THEME_GIT_PROMPT_SUFFIX"
 #}
 
+function git_sha {
+  local sha=$( git log -n 1 2> /dev/null | grep commit | awk {'print $2'} )
+  echo ${sha:0:7}
+}
+
+function git_branch { git branch --list --no-color | grep "*" | awk '{print $2}' }
+
 function short_git_info { echo $( git_prompt_info )| sed "s/^git:(//" | sed "s/)//"  }
 
-#$1 is git_prompt_info
-function shorten_git_info { echo $1 | sed "s/^git:(//" | sed "s/)//"  }
+function my_fast_git_prompt {
+  git log -n 1 1>/dev/null 2> /dev/null
+  if [ $? -eq 0 ] ; then
+    local sha=$( git_sha )
+    echo "($( git_branch ):$( git_sha ))"
+  else
+    echo ""
+  fi
+}
+
+
+
 function my_git_promt {
   PROMPT_INFO=$( git_prompt_info )
   SHORT_INFO=$( short_git_info $PROMPT_INFO )
@@ -75,6 +92,7 @@ function hostname_color {
 #MINIMAL_PROMPT=true
 if ! [ -z "$MINIMAL_PROMPT" ] ; then
   PROMPT=$'
+$( my_fast_git_prompt )
 $SALMON%n%{$reset_color%}@%{$(hostname_color)%}%m$RESET: $CBLUE$PWD
 %(?,$GREEN,$RED)$%{$RESET%} '
 

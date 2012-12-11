@@ -1,4 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
-let g:netrw_dirhist_1='/home/dustin/Dropbox/dotfiles/.oh-my-zsh/custom/example'
-let g:netrw_dirhist_2='/home/dustin/Dropbox/dotfiles/.tmux-powerline'

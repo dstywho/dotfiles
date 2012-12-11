@@ -1,12 +1,10 @@
 #COLORS
-BROWN="\[\e[38;5;143m\]"
-BLUE="\[\e[38;5;117m\]"
-FUSIA="\[\e[38;5;170m\]"
-SALMON="\[\e[38;5;216m\]"
-NOCOLOR="\[\e[00m\]"
-echo "bashrc"
+test -f ~/.colors && . ~/.colors
+
+test -f ~/.profile && source ~/.profile
 
 
+set bell-style visible
 function __common_vars() {
   export EDITOR=vim
   export SVN_EDITOR=vim
@@ -33,9 +31,8 @@ function __set_mac_customizations(){
   __mac_aliases
 }
 
-
 function __linux_vars() {
-  export TERM=xterm-256color
+  export TERM='xterm-256color'
 }
 
 function __linux_aliases() {
@@ -50,16 +47,17 @@ function __set_linux_customizations(){
   __linux_aliases
 }
 
+
+test -f ~/.alias && . ~/.alias
 __common_vars
 
 unamestr=$( uname -s )
-echo $unamestr
 if [[ "$unamestr" == 'Linux' ]]; then
   __set_linux_customizations
 elif [[ "$unamestr" == 'Darwin' ]]; then
   __set_mac_customizations
 elif $unamestr | egrep -q "CYGWIN"; then
-  echo    
+  echo 'cygwin stuff not defined'
 fi
 
 
@@ -72,9 +70,18 @@ else
     SCREENTITLE=''
 fi
 
+function color_escape () {
+  echo "\[$1\]"
+}
+
 export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
 if [[ "$TERM" = *256* ]] ; then
-  export PS1="\n${BROWN}\u${BLUE}@${FUSIA}\h${NOCOLOR}:${BLUE}\w${SCREENTITLE}  \n${NOCOLOR}\$ "
+  if [ -z "$HOSTNAME_COLOR" ]; then
+      HOSTNAME_COLOR_CODE="$PINK"
+  else
+      HOSTNAME_COLOR_CODE="$( color256 $HOSTNAME_COLOR )"
+  fi
+  export PS1="\n$(color_escape $BROWN)\u$(color_escape $NOCOLOR)@$(color_escape $HOSTNAME_COLOR_CODE)\h$(color_escape $NOCOLOR):$(color_escape $BLUE)\w  \n$(color_escape $NOCOLOR)\$ "
 else
 	PS1='\n\u@\h:\w \n$'
 fi
@@ -83,6 +90,8 @@ fi
 
 PATH=$PATH:$HOME/bin/git-tf-1.0.1.20120827
 PATH=$PATH:$HOME/bin
+PATH=$PATH:$HOME/.bin
+PATH=$PATH:$HOME/.local/bin
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 #source ~/.rvm/scripts/rvm
 

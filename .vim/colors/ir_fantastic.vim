@@ -1,4 +1,5 @@
-" ir_black color scheme" More at: http://blog.infinitered.com
+" ir_black color scheme
+" More at: http://blog.infinitered.com
 
 
 " ********************************************************************************
@@ -62,6 +63,29 @@ endif
 
 let colors_name = "ir_black"
 
+hi SignColumn guibg=NONE ctermbg=NONE
+
+let _hpink= { 'hex': '#ff00ff', 'ansi': '125' }
+let _pink= { 'hex': '#ff00ff', 'ansi': '177' }
+let _purple_pastel= { 'hex': '#afafff', 'ansi': '147' }
+let _purple= { 'hex': '#afafff', 'ansi': '141' }
+let _yellow= { 'hex': '#ffaf00', 'ansi': '228' }
+let _white = { 'hex': '#ffffff', 'ansi': '15' }
+let _dgrey= { 'hex': '#262626', 'ansi': '235' }
+let _grey= { 'hex': '#9e9e9e', 'ansi': '247' }
+let _red= { 'hex': '#ff8787', 'ansi': '9' }
+let _rred= { 'hex': '#ff8787', 'ansi': '168' }
+let _light_green= { 'hex': '#d7ff87', 'ansi': '192' }
+let _green= { 'hex': '#008000', 'ansi': '28' }
+let _dgreen= { 'hex': '#008000', 'ansi': '22' }
+let _mgreen= { 'hex': '#008000', 'ansi': '115' }
+let _blue = { 'hex': '#87d7ff', 'ansi': '81' }
+let _none= { 'hex': 'none', 'ansi': 'none' }
+let _black= { 'hex': '121212', 'ansi': '233' }
+
+function! MyHighlight(name, fg, bg, mod)
+  execute "hi ".a:name." ctermfg=".a:fg['ansi']." ctermbg=".a:bg['ansi']." cterm=".a:mod." guifg=".a:fg['hex']." guibg=".a:bg['ansi']."gui=".a:mod
+endfunction
 
 "hi Example         guifg=NONE        guibg=NONE        gui=NONE      ctermfg=NONE        ctermbg=NONE        cterm=NONE
 
@@ -69,15 +93,13 @@ let colors_name = "ir_black"
 hi Normal guifg=#f6f3e8 guibg=black gui=NONE 
 hi NonText guifg=#070707 guibg=black gui=NONE ctermfg=128  ctermbg=NONE cterm=NONE
 
-hi SignColumn guibg=NONE ctermbg=NONE
-
 hi Cursor           guifg=black       guibg=white       gui=NONE      ctermfg=white       ctermbg=white       cterm=reverse
 
 "line number
 hi LineNr           guifg=#3D3D3D     guibg=black       gui=NONE      ctermfg=239         ctermbg=None       cterm=NONE
 
 hi VertSplit        guifg=#202020     guibg=#202020     gui=NONE      ctermfg=darkgray    ctermbg=darkgray   cterm=NONE
-hi StatusLine       guifg=#FF7575     guibg=#f7f5f5     gui=italic    ctermfg=233         ctermbg=254        cterm=NONE
+"hi StatusLine       guifg=#FF7575     guibg=#f7f5f5     gui=italic    ctermfg=233         ctermbg=254        cterm=NONE
 hi StatusLineNC     guifg=black       guibg=#999995     gui=NONE      ctermfg=235         ctermbg=244        cterm=NONE 
 
 hi Folded           guifg=#a0a8b0     guibg=#384048     gui=NONE      ctermfg=67        ctermbg=NONE        cterm=NONE
@@ -100,31 +122,50 @@ hi ModeMsg          guifg=black       guibg=#C6C5FE     gui=BOLD      ctermfg=bl
 
 hi MatchParen     guifg=#f6f3e8     guibg=#857b6f     gui=BOLD      ctermfg=white       ctermbg=darkgray    cterm=NONE
 hi CursorColumn   guifg=NONE        guibg=#121212     gui=NONE      ctermfg=NONE        ctermbg=NONE        cterm=BOLD
-hi CursorLine     guifg=NONE        guibg=#121212     gui=NONE      ctermfg=NONE        ctermbg=236         cterm=none
+"hi CursorLine     guifg=NONE        guibg=#121212     gui=NONE      ctermfg=NONE        ctermbg=236         cterm=none
 hi Pmenu          guifg=#f6f3e8     guibg=#444444     gui=NONE      ctermfg=250         ctermbg=240        cterm=NONE
 hi PmenuSel       guifg=#000000     guibg=#cae682     gui=NONE      ctermfg=195         ctermbg=243        cterm=NONE
 hi Search         guifg=NONE        guibg=NONE        gui=underline ctermfg=NONE        ctermbg=54          cterm=underline
 
+
 " Syntax highlighting
-hi Comment          guifg=#7C7C7C     guibg=NONE        gui=NONE      ctermfg=gray     ctermbg=NONE        cterm=NONE
-hi String           guifg=#A8FF60     guibg=NONE        gui=NONE      ctermfg=157      ctermbg=NONE        cterm=NONE
-hi Number           guifg=#FF73FD     guibg=NONE        gui=NONE      ctermfg=177      ctermbg=NONE        cterm=NONE
+call MyHighlight('Comment'     , _grey          , _none , 'none')
+call MyHighlight('String'      , _yellow, _none , 'none')
+call MyHighlight('Keyword'     , _blue          , _none , 'bold')
+call MyHighlight('PreProc'     , _blue          , _none , 'none')
+call MyHighlight('Number'      , _rred          , _none , 'none')
+call MyHighlight('Conditional' , _blue          , _none , 'none')
+call MyHighlight('Statement'   , _blue          , _none , 'none')
+call MyHighlight('Todo'        , _hpink , _none , 'none')
 
-hi Keyword          guifg=#96CBFE     guibg=NONE        gui=NONE      ctermfg=117        ctermbg=NONE        cterm=NONE
-hi PreProc          guifg=#96CBFE     guibg=NONE        gui=NONE      ctermfg=117        ctermbg=NONE        cterm=NONE
-hi Conditional      guifg=#6699CC     guibg=NONE        gui=NONE      ctermfg=blue        ctermbg=NONE        cterm=NONE  " if else end
+"symbol
+call MyHighlight('Constant'    , _purple, _none , 'none')
 
-hi Todo             guifg=#8f8f8f     guibg=NONE        gui=NONE      ctermfg=red         ctermbg=NONE        cterm=NONE
-hi Constant         guifg=#99CC99     guibg=NONE        gui=NONE      ctermfg=158        ctermbg=NONE        cterm=NONE
+call MyHighlight('Type'        , _blue, _none , 'none') "class name
+call MyHighlight('Function'    , _purple, _none , 'none')
+call MyHighlight('Delimiter'   , _yellow, _none , 'none')
+call MyHighlight('Operator'    , _hpink , _none , 'none')
+call MyHighlight('Special'     , _pink          , _none , 'none')
+call MyHighlight('Identifier'  , _purple_pastel , _none , 'none')
+"hi Comment          guifg=#7C7C7C     guibg=NONE        gui=NONE      ctermfg=gray     ctermbg=NONE        cterm=italic
+"hi String           guifg=#A8FF60     guibg=NONE        gui=NONE      ctermfg=157      ctermbg=NONE        cterm=NONE
+"hi Number           guifg=#FF73FD     guibg=NONE        gui=NONE      ctermfg=177      ctermbg=NONE        cterm=NONE
 
-hi Identifier       guifg=#C6C5FE     guibg=NONE        gui=NONE      ctermfg=147         ctermbg=NONE        cterm=NONE
-hi Function         guifg=#FFFFB6     guibg=NONE        gui=NONE      ctermfg=229         ctermbg=NONE        cterm=NONE
-hi Type             guifg=#FFFFB6     guibg=NONE        gui=NONE      ctermfg=229         ctermbg=NONE        cterm=NONE
-hi Statement        guifg=#AED0E6     guibg=NONE        gui=NONE      ctermfg=117         ctermbg=NONE        cterm=NONE
+"hi Keyword          guifg=#96CBFE     guibg=NONE        gui=NONE      ctermfg=117        ctermbg=NONE        cterm=NONE
+"hi PreProc          guifg=#96CBFE     guibg=NONE        gui=NONE      ctermfg=117        ctermbg=NONE        cterm=NONE
+"hi Conditional      guifg=#6699CC     guibg=NONE        gui=NONE      ctermfg=blue        ctermbg=NONE        cterm=NONE  " if else end
 
-hi Special          guifg=#E18964     guibg=NONE        gui=NONE      ctermfg=219         ctermbg=NONE        cterm=NONE
-hi Delimiter        guifg=#00A0A0     guibg=NONE        gui=NONE      ctermfg=cyan        ctermbg=NONE        cterm=NONE
-hi Operator         guifg=white       guibg=NONE        gui=NONE      ctermfg=white       ctermbg=NONE        cterm=NONE
+"hi Todo             guifg=#8f8f8f     guibg=NONE        gui=NONE      ctermfg=red         ctermbg=NONE        cterm=NONE
+"hi Constant         guifg=#99CC99     guibg=NONE        gui=NONE      ctermfg=158        ctermbg=NONE        cterm=NONE
+
+"hi Identifier       guifg=#C6C5FE     guibg=NONE        gui=NONE      ctermfg=147         ctermbg=NONE        cterm=NONE
+"hi Function         guifg=#FFFFB6     guibg=NONE        gui=NONE      ctermfg=229         ctermbg=NONE        cterm=NONE
+"hi Type             guifg=#FFFFB6     guibg=NONE        gui=NONE      ctermfg=229         ctermbg=NONE        cterm=NONE
+"hi Statement        guifg=#AED0E6     guibg=NONE        gui=NONE      ctermfg=117         ctermbg=NONE        cterm=NONE
+
+"`hi Special          guifg=#E18964     guibg=NONE        gui=NONE      ctermfg=219         ctermbg=NONE        cterm=NONE
+"`hi Delimiter        guifg=#00A0A0     guibg=NONE        gui=NONE      ctermfg=cyan        ctermbg=NONE        cterm=NONE
+"`hi Operator         guifg=white       guibg=NONE        gui=NONE      ctermfg=white       ctermbg=NONE        cterm=NONE
 
 hi link Character       Constant
 hi link Boolean         Constant
@@ -146,13 +187,23 @@ hi link Debug           Special
 
 
 " Special for Ruby
-hi rubyRegexp                  guifg=#B18A3D      guibg=NONE      gui=NONE      ctermfg=brown          ctermbg=NONE      cterm=NONE
-hi rubyRegexpDelimiter         guifg=#FF8000      guibg=NONE      gui=NONE      ctermfg=brown          ctermbg=NONE      cterm=NONE
-hi rubyEscape                  guifg=white        guibg=NONE      gui=NONE      ctermfg=white           ctermbg=NONE      cterm=NONE
-hi rubyInterpolationDelimiter  guifg=#00A0A0      guibg=NONE      gui=NONE      ctermfg=66             ctermbg=NONE      cterm=NONE
-hi rubyControl                 guifg=#6699CC      guibg=NONE      gui=NONE      ctermfg=117            ctermbg=NONE      cterm=NONE  "and break, etc
-"hi rubyGlobalVariable          guifg=#FFCCFF      guibg=NONE      gui=NONE      ctermfg=lightblue      ctermbg=NONE      cterm=NONE  "yield
-hi rubyStringDelimiter         guifg=#336633      guibg=NONE      gui=NONE      ctermfg=77             ctermbg=NONE      cterm=NONE
+"hi rubyRegexp                  guifg=#B18A3D      guibg=NONE      gui=NONE      ctermfg=brown          ctermbg=NONE      cterm=NONE
+hi  link  rubyRegexp                                   String
+hi  link  rubyRegexpDelimiter                          String
+hi  link  rubyEscape                                   Keyword
+hi  link  rubyInterpolationDelimiter                   Keyword
+hi  link  rubyControl                                  Keyword
+hi  link  rubyGlobalVariable                           Keyword
+hi  link  rubyStringDelimiter                          Delimiter
+
+
+
+"hi rubyRegexpDelimiter         guifg=#FF8000      guibg=NONE      gui=NONE      ctermfg=brown          ctermbg=NONE      cterm=NONE
+"hi rubyEscape                  guifg=white        guibg=NONE      gui=NONE      ctermfg=white           ctermbg=NONE      cterm=NONE
+"hi rubyInterpolationDelimiter  guifg=#00A0A0      guibg=NONE      gui=NONE      ctermfg=66             ctermbg=NONE      cterm=NONE
+"hi rubyControl                 guifg=#6699CC      guibg=NONE      gui=NONE      ctermfg=117            ctermbg=NONE      cterm=NONE  "and break, etc
+""hi rubyGlobalVariable          guifg=#FFCCFF      guibg=NONE      gui=NONE      ctermfg=lightblue      ctermbg=NONE      cterm=NONE  "yield
+"hi rubyStringDelimiter         guifg=#336633      guibg=NONE      gui=NONE      ctermfg=77             ctermbg=NONE      cterm=NONE
 "rubyInclude
 "rubySharpBang
 "rubyAccess
@@ -227,3 +278,5 @@ hi User5 guibg=#87D7FF guifg=#404040 ctermfg=234 ctermbg=167
 hi User6 guibg=#87D7FF guifg=#404040 ctermfg=234 ctermbg=118
 hi User7 guibg=#87D7FF guifg=#404040 ctermfg=234 ctermbg=119
 
+syn match OperatorAnnex display "||\|?\|+\|-\|&\|*\|<\|>\|:"
+hi def link OperatorAnnex Operator

@@ -1,0 +1,32 @@
+ Config { 
+        font = "-misc-fixed-*-*-*-*-14-*-*-*-*-*-*-*"
+        --font = "xft:Bitstream Vera Sans Mono:size=10:antialias=true"
+        , borderColor = "black"
+        , border = TopB
+        , bgColor = "black"
+        , fgColor = "grey"
+--        , position = Bottom
+        , position = Top
+        lowerOnStart = True
+        --, persistent = True
+        , commands = [ 
+                    --Run Weather "KIGX" ["-t","<tempC>C","-L","18","-H","27","--normal","grey","--high","#ff5f5f","--low","#87d7ff"] 36000
+                     --,Run Weather "KRDU" ["-t","<tempF>F/<skyCondition>","-L","62","-H","82","--normal","grey","--high","#ff5f5f","--low","#87d7ff"] 36000
+                      Run Network "wlan0" ["-L","0","-H","32","--normal","#afff87","--high","#ff5f5f"] 10
+                     , Run Network "em1"   ["-L","0","-H","32","--normal","#afff87","--high","#ff5f5f"] 10
+                     , Run Network "tun0"  ["-L","0","-H","32","--normal","#afff87","--high","#ff5f5f"] 10
+                     , Run Battery ["-t","<left>% / <timeleft>","-L","50","-H","75","-h","#afff87","-n","yellow","-l","#ff5f5f"] 10
+--                   , Run Battery ["t","<left>%","-L","50","-H","75","-h","green","--normal","yellow", "--low", "#ffff87"] 10
+                     , Run Cpu ["-L","3","-H","50","--normal","#afff87","--high","red"] 10
+                     , Run Memory ["-t","Mem: <usedratio>%","-L","3","-H","50","--normal","#afff87","--high","red"] 10
+--                     , Run Swap [] 10
+                     , Run Com "uname" ["-s","-r"] "" 36000
+                     , Run Com "cat" ["/etc/system-release"] "" 36000
+                     , Run Date "%a %b %_d %Y %l:%M:%S %p" "date" 10
+                    , Run StdinReader
+                     ]
+        , sepChar = "%"
+        , alignSep = "}{"
+        , template = "%StdinReader% }{ %memory% | %battery% | <fc=#ffff87>%date%</fc>"
+        }
+

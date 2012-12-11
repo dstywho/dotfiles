@@ -1,0 +1,7 @@
+#!/bin/sh
+
+mycommand=$@
+until $mycommand && tput bel; do
+  echo failed try again >&2
+  sleep 1;
+done

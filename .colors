@@ -1,0 +1,23 @@
+#!/bin/sh
+export NOCOLOR="\e[00m"
+
+function color256 {
+  echo "\e[38;5;$1m"
+}
+
+if [ "$(tput colors)" -eq "256" ]
+then
+   export RED="$(color256 9)"
+   export BLUE="$(color256 117)"
+   export CBLUE="$(color256 81)"
+   export YELLOW="$(color256 229)"
+   export BROWN="$(color256 143)"
+   export PINK="$(color256 177)"
+   export SALMON="$(color256 204)"
+   export GREEN="$(color256 155)"
+else
+    export RED="\e[31m"
+    export GREEN="\e[32m"
+    export BLUE="\e[34m"
+    export YELLOW="\e[33m"
+fi

@@ -1,0 +1,71 @@
+#!/bin/sh
+
+HASH="%C(yellow)%h%C(reset)"
+LONG_HASH="%C(yellow)%H%C(reset)"
+RELATIVE_TIME="%C(green)(%ar)%C(reset)"
+AUTHOR="%C(bold blue)%an %C(reset)"
+COMMITER="%C(bold cyan)%cn %C(reset)"
+REFS="%C(red)%d%C(reset)"
+SUBJECT="%s"
+UNIXTIME="%at"
+
+FORMAT="$HASH}$RELATIVE_TIME}$AUTHOR}$REFS $SUBJECT"
+FORMAT_LONG_HASH="$LONG_HASH}$RELATIVE_TIME}$AUTHOR}$COMMITER}$REFS $SUBJECT"
+
+branch_format() {
+  local branch="%C(red)$1%C(reset)"
+  echo "$UNIXTIME:$HASH}$RELATIVE_TIME}$AUTHOR}$branch}$SUBJECT"
+}
+
+show_git_head() {
+    git_pretty_log -1
+    git show -p --pretty="tformat:"
+}
+
+git_log() {
+    echo ${*:2} ;git log --pretty="tformat:$1" ${*:2}|
+        # Replace (2 years ago) with (2 years)
+        sed -Ee 's/(^[^<]*) ago\)/\1)/' |
+        # Replace (2 years, 5 months) with (2 years)
+        sed -Ee 's/(^[^<]*), [[:digit:]]+ .*months?\)/\1)/' |
+        # Line columns up based on } delimiter
+        column -s '}' -t |
+        # Page only if we need to
+        less -FXRS
+}
+
+function branches(){
+  git branch $@ | sed "s/\*\| //g"
+}
+
+function branch_merge_base_master(){
+  branches | xargs -I "xxxXxxx" git merge-base xxxXxxx master
+}
+
+function ref_age(){
+  git --no-pager log -1 --pretty=tformat:"%at:$FORMAT" $*  --decorate
+}
+
+function _branch_created_at(){
+   branch_merge_base_master | while read line ; do ref_age $line; done 
+}
+
+function branch_created_at(){
+  _branch_created_at > /tmp/ages
+  branches > /tmp/branches
+  paste /tmp/ages /tmp/branches 
+}
+
+function git_branch_age(){
+branches $@ | xargs -n1 -I _x_ git --no-pager log -1 --pretty=tformat:"$( branch_format _x_ )" _x_ |  sort -nr | cut -d: -f 2 |  column -t -s"}"
+}
+
+function git_stash_list(){
+  git stash list | 
+    awk '{print $1}' | sed 's/://' |
+    xargs -n1 -Ix sh -c "printf 'x ' && git --no-pager show --stat x --pretty=tformat:'$FORMAT'" | 
+    less -FXRS
+}
+
+
+

@@ -1,0 +1,72 @@
+alias tmux='tmux -2' 
+alias less='less -FRXS' 
+alias xclip='xclip -selection c' 
+alias nocolor='sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"'
+function gfind(){ 
+  find . -name "*${1}*" 
+}
+function ffind(){ 
+   glob="*$( echo "$1" | sed "s/./&*/g" )"
+   echo "$glob"
+   find . -name "$glob"
+}
+function highlight(){
+  if [ -z "$2" ]; then #empty
+     sed "s/$1/\x1b[38;5;199m&\x1b[0m/g"
+  else
+     sed "s/$1/\x1b[38;5;$2m&\x1b[0m/g"
+  fi
+}
+alias hl="highlight"
+function hlpink(){ 
+  highlight $1 
+}
+function hlblue(){ 
+  highlight $1 117 
+}
+function hlgreen(){ 
+  highlight $1 46 
+}
+
+
+alias beep="echo pew pew!"
+alias timestamp="date +%Y%m%d-%H%M%S"
+alias encrypt="gpg -ac --output -"
+function einit(){ 
+  local message="$( echo '' | vipe )"
+  echo $message | gpg -ac -o $1
+}
+function eedit(){
+  echo "creating backup incase something goes wrong"
+  cp $1 /tmp/backup.asc
+  local a="$( gpg --decrypt $1 )"
+  test ! $? -eq 0 && exit
+  local a="$( echo $a | vipe )"
+  test ! $? -eq 0 && exit
+  echo $a | gpg -ac -o $1
+}
+function virsh-destroy(){
+  name=$1
+  sudo virsh destroy $1
+  sudo rm -rf "/var/lib/libvirt/images/${name}.img"
+  sudo virsh undefine $1
+  tput bel; prowl "removed $name"
+}
+function rssh(){
+  runtil ping -c 1 $1; ssh $1
+}
+
+alias ecat="gpg --decrypt -o -"
+alias tt="tmux attach -t 0" 
+alias pass="ecat $HOME/Dropbox/personal/mystuff.asc"
+alias hosts="sudo vi /etc/hosts"
+alias h="sudo vi /etc/hosts"
+alias virsh="sudo virsh"
+alias mpwd="echo $USER@$HOSTNAME:$PWD"
+alias vpnc="sudo vpnc-disconnect;sudo vpnc"
+alias ssh="ssh -oStrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+alias read="tput bel; read"
+alias bel='tput bel'
+
+alias fvirsh='virsh -c qemu+ssh://root@fishsticks.usersys.redhat.com/system'
+alias fvirt-viewer='virt-viewer -c qemu+ssh://root@fishsticks.usersys.redhat.com/system'

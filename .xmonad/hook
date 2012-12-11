@@ -1,0 +1,32 @@
+#!/bin/sh
+case "$1" in
+startup)
+
+  feh --bg-fill /usr/share/backgrounds/default.png
+
+  if pgrep xfce4-power-manager; then
+    echo not
+  else
+    xfce4-power-manager
+  fi
+
+  if pgrep nm-applet; then
+    echo not
+  else
+    nm-applet --sm-disable
+  fi
+
+  if pgrep dropbox; then
+    echo not
+  else
+    ionice -c 3 dropbox start -i
+  fi
+
+  if [ $DESKTOP_SESSION = 'xmonad' ] && !( pgrep xfce4-panel ); then 
+      xfce4-panel --disable-wm-check 
+  fi
+;;
+
+esac
+
+
