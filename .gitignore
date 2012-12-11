@@ -1,0 +1,6 @@
+id_rsa
+id_rsa*
+known_hosts*
+*.sw*
+.sw*
+

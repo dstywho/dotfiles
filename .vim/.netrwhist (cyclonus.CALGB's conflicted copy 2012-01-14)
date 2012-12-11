@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/Applications/World of Warcraft/Interface/AddOns/AuraFramesConfig'
+let g:netrw_dirhist_2='/Applications/World of Warcraft/Interface/AddOns/AuraFrames/ButtonFacade'
+let g:netrw_dirhist_3='/home/dustin/Dropbox/code/unrestful_storage/config/environments'
+let g:netrw_dirhist_4='/Users/dustin/tmp/npm2/npm'
+let g:netrw_dirhist_5='/Users/dustin/Dropbox/CALGB/code/sel_example'
+let g:netrw_dirhist_6='/home/cdtsang/Workspaces2/pcpaws/.git'
+let g:netrw_dirhist_7='/home/cdtsang/Workspaces2/pcpaws/PaymentWebServiceClient'

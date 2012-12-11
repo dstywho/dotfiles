@@ -1,0 +1,10 @@
+[user]
+	name = dustin
+	email = dstywho@gmail.com
+[github]
+	token = 0ce02678b82797618d530cc9741ccba4
+[color]
+	diff = auto
+	interactive = auto
+	status = auto
+	branch = auto

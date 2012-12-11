@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/Applications/World of Warcraft/Interface/AddOns/AuraFramesConfig'
+let g:netrw_dirhist_2='/Applications/World of Warcraft/Interface/AddOns/AuraFrames/ButtonFacade'
+let g:netrw_dirhist_3='/home/dustin/Dropbox/code/unrestful_storage/config/environments'
+let g:netrw_dirhist_4='/home/cdtsang/Dropbox/code/present.js/example.html'
+let g:netrw_dirhist_5='/home/cdtsang/Dropbox/code/ning_user_manager/lib/ning_strategy.rb'

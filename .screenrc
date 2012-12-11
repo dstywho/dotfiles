@@ -1,0 +1,50 @@
+# terminfo and termcap for nice 256 color terminal
+# allow bold colors - necessary for some reason
+term xterm-256color
+#term screen-256color
+
+attrcolor b ".I"
+# tell screen how to set colors. AB = background, AF=foreground
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+## erase background with current bg color
+defbce "on"
+
+#autodetach on
+
+activity "%c activity -> %n%f %t"
+hardstatus alwayslastline
+hardstatus string '%{gk}[ %{G}%H %{g}][%= %{wk}%?%-Lw%?%{=b kR}(%{W}%n*%f %t%?(%u)%?%{=b kR})%{= kw}%?%+Lw%?%?%= %{g}][%{Y}%l%{g}]%{=b C}[ %m/%d %c ]%{W}'
+
+vbell off
+vbell_msg " Pew Pew! "
+
+shelltitle "$|nyan?"
+
+#remove some stupid / dangerous key bindings
+#bind k
+#bind ^k
+#bind .
+#bind ^\
+#bind \\
+#bind ^h
+#bind h
+#bind x remove
+##make them better
+#bind 'K' kill
+#bind 'I' login on
+#bind 'O' login off
+#bind '}' history
+#bind b eval "only" "split" "focus up" "resize 5"  
+#bind v eval "only" "split" "split" "resize 30" "redisplay" "focus down" "resize 5" "focus up"
+bind  j windowlist -b
+bind ^r eval "screen -t editor vim" "screen -t tail tail -f log/development.log" "title log" "screen -t bash" "screen -t server rails server"
+bind ^w eval "screen -t dev ssh calgbvsdev1" "screen -t test ssh calgbvsdev2" "screen -t beta ssh calgbvsdev3" "screen -t maven ssh calgbvsdev5" 
+ 
+#bind l eval "screen -t dev-log tail -f log/development.log"
+bind = resize +5
+bind - resize -5
+
+multiuser on
+acladd derick 
+acladd ttsang
+acladd ashley

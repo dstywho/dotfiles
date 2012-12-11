@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/home/cdtsang/projects/jboss_fun/jboss-as/server/production/farm'
+let g:netrw_dirhist_2='/home/cdtsang/Dropbox/code/bootstrap'
+let g:netrw_dirhist_3='/home/cdtsang/Dropbox/code/bootstrap/img'
+let g:netrw_dirhist_4='/home/cdtsang/Dropbox/code/bootstrap/docs/assets'
+let g:netrw_dirhist_5='/home/cdtsang/Dropbox/code/portafolio2/app/assets/bootstrap/js'
+let g:netrw_dirhist_6='/home/cdtsang/tmp/blah'
+let g:netrw_dirhist_7='/home/cdtsang'

@@ -1,0 +1,6 @@
+# ~/.bashrc: executed by bash(1) for non-login shells.
+
+export LS_COLORS="di=31;1:ln=36;1:ex=31;1:*~=31;1:*.html=31;1:*.shtml=37;1"
+
+alias ls="ls --color=auto"
+alias grep="grep --color=auto"
